@@ -96,13 +96,16 @@ int main(int argc, char* argv[])
 
     write(fileDescriptor, (void *) soundFile->buffer, soundFile->size);
     printf("2!\n\r");
-    while (read(fileDescriptor, (void *)buf, sizeof(buf) )) {}
+  
+    while (read(fileDescriptor, (void *)buf, sizeof(buf) )) {} 
+  
     ioctl(fileDescriptor, IOCTL_START_LOOP);
     write(fileDescriptor, (void *) sound2->buffer, sound2->size);
 
     for (uint32_t i = 0; i < 40000000; ++i)
     {
-      //stub
+      // 2 internal operations to ensure that the Compiler doesn't Optimize away this loop
+      // Which needs to last long enough for the sounds to play.
       i--;
       i++;
     }
